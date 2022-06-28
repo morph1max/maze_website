@@ -4,13 +4,13 @@
 import socket
 import time
 
-from functions.func_decode_data import from_client_update
-from session_data.create_session import create_session
+from server.functions.func_decode_data import from_client_update
 
-from session_data.server_data import ServerData
-from session_data.player_data import PlayerData
+from server.session_data.create_session import create_session
+from server.session_data.server_data import ServerData
+from server.session_data.player_data import PlayerData
 
-from settings import fps, time_move
+from server.settings import fps, time_move
 
 
 def next_move_player(server_data: ServerData):
@@ -33,23 +33,25 @@ def next_move_player(server_data: ServerData):
     return server_data
 
 
-def server():
+def server(_total_amount_player, _amount_boss, port):
     """ Реализация сервера. """
-
-    # Кол-во всего игроков в игре.
-    _total_amount_player = abs(int(input("Total amount players = ")))
 
     # Настройка серверного сокета.
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 
-    server_address = ("localhost", 9090)
+    hostname = socket.gethostname()
+    print(hostname)
+    dns_resolved_addr = socket.gethostbyname(hostname)
+    print(dns_resolved_addr)
+
+    server_address = (dns_resolved_addr, port)
     server_socket.bind(server_address)
     server_socket.setblocking(0)
     server_socket.listen(_total_amount_player)
 
     # Создание данных сессии.
-    _amount_player, _labirinth, _pos_exit, _pos_player = create_session(_total_amount_player, 5, 5)
+    _amount_player, _labirinth, _pos_exit, _pos_player = create_session(_total_amount_player, _amount_boss, 5, 5)
 
     # На протяжении игровой сессии тут будут храниться все данные о лабиринте и игроках.
     server_data = ServerData(server_socket, _total_amount_player, _amount_player, _labirinth, _pos_player, _pos_exit)
@@ -275,4 +277,4 @@ def server():
 
 
 if __name__ == "__main__":
-    server()
+    server(3, 1, 9090)
