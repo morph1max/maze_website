@@ -45,7 +45,7 @@ def server(_total_amount_player, _amount_boss, port):
     dns_resolved_addr = socket.gethostbyname(hostname)
     print(dns_resolved_addr)
 
-    server_address = (dns_resolved_addr, port)
+    server_address = ("morph1maze.herokuapp.com", port)
     server_socket.bind(server_address)
     server_socket.setblocking(0)
     server_socket.listen(_total_amount_player)
