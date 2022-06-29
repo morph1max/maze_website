@@ -41,12 +41,9 @@ def server(_total_amount_player, _amount_boss, port):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 
-    hostname = socket.gethostname()
-    print(hostname)
-    dns_resolved_addr = socket.gethostbyname(hostname)
-    print(dns_resolved_addr)
+    print(f"address = morph1maze.herokuapp.com:{int(os.environ.get('PORT'))}")
 
-    server_address = ("morph1maze.herokuapp.com", os.environ.get('PORT'))
+    server_address = ("morph1maze.herokuapp.com", int(os.environ.get('PORT')))
     server_socket.bind(server_address)
     server_socket.setblocking(0)
     server_socket.listen(_total_amount_player)
