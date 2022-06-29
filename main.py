@@ -1,5 +1,6 @@
 # https://medium.com/nuances-of-programming/овладей-python-создавая-реальные-приложения-часть-4-60e016f18422
 # https://pythonru.com/uroki/3-osnovy-flask
+# https://www.linode.com/
 
 from flask import Flask, render_template, request
 
