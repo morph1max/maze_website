@@ -1,0 +1,15 @@
+@font-face {
+    font-family: "Roundico";
+    src: url(../font/ocrabeckerrus_lat.otf);
+    font-size: 12px;
+}
+
+h2, h1 {
+    color: #E2B845;
+    font-family: "Roundico";
+}
+
+p {
+    color: #000000;
+    font-family: "Roundico";
+}
